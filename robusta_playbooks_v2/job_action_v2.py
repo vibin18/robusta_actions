@@ -108,7 +108,6 @@ def alert_handling_job(event: PrometheusKubernetesAlert, params: JobParams):
                             image=params.image,
                             command=params.command,
                             securityContext= params.ContainerSecurityContext,
-                            resources=params.PodResources
                         ),
                     ],
                     securityContext=params.PodSecurityContext,
