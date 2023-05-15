@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
 
-from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, SecurityContext, PodSecurityContext, PodTemplateSpec
+from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, SecurityContext, PodSecurityContext, ResourceRequirements, PodTemplateSpec
 
 from robusta.api import (
     ActionParams,
@@ -66,7 +66,20 @@ class JobParams(ActionParams):
         runAsNonRoot= True,
         runAsGroup=1000,
     )
-
+    
+    PodResources = ResourceRequirements(
+        limits={
+                "cpu": "200m",
+                "mem": "100Mi",
+                "ephemeral-storage": "1Gi",
+            },
+        requests=
+            {
+                "cpu": "200m",
+                "mem": "100Mi",
+                "ephemeral-storage": "1Gi",
+            },
+    )
 
 
 @action
@@ -94,19 +107,8 @@ def alert_handling_job(event: PrometheusKubernetesAlert, params: JobParams):
                             image=params.image,
                             command=params.command,
                             securityContext= params.ContainerSecurityContext,
-                            resources=Container.ResourceRequirements(
-                                Container.resources.limits.values({
-                                    "cpu": "200m",
-                                    "mem": "100Mi",
-                                    "ephemeral-storage": "1Gi"}
-                                ),
-                                Container.resources.requests.values({
-                                    "cpu": "200m",
-                                    "mem": "100Mi",
-                                    "ephemeral-storage": "1Gi"}
-                                ),
-                            )
-                        )
+                            resources=params.PodResources
+                        ),
                     ],
                     securityContext=params.PodSecurityContext,
                     serviceAccountName=params.service_account,
