@@ -47,8 +47,8 @@ class JobParams(ActionParams):
     notify: bool = False
     backoff_limit: int = None  # type: ignore
     active_deadline_seconds: int = None  # type: ignore
-
-    ContainerSecurityContext = SecurityContext(
+        
+    ContainerSecurityContext = Container.securityContext(
         allowPrivilegeEscalation = False,
         capabilities = Container.securityContext.capabilities.drop(["ALL"]),
         privileged = False,
