@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
 
-from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, SecurityContext, PodSecurityContext, ResourceRequirements, PodTemplateSpec
+from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, SecurityContext, PodSecurityContext, ResourceRequirements, Capabilities, PodTemplateSpec
 
 from robusta.api import (
     ActionParams,
@@ -50,7 +50,7 @@ class JobParams(ActionParams):
         
     ContainerSecurityContext = SecurityContext(
         allowPrivilegeEscalation = False,
-        capabilities = ["ALL"],
+        capabilities = Capabilities(drop=["ALL"]),
         privileged = False,
         readOnlyRootFilesystem = True,
         runAsGroup = 1337,
