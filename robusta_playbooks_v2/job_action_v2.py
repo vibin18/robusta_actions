@@ -108,7 +108,7 @@ def alert_handling_job(event: PrometheusKubernetesAlert, params: JobParams):
                             )
                         )
                     ],
-                    SecurityContext=params.PodSecurityContext,
+                    securityContext=params.PodSecurityContext,
                     serviceAccountName=params.service_account,
                     restartPolicy=params.restart_policy,
                 )
