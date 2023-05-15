@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
 
-from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, PodTemplateSpec
+from hikaru.model import Container, Job, JobSpec, JobStatus, ObjectMeta, PodSpec, SecurityContext, PodSecurityContext, PodTemplateSpec
 
 from robusta.api import (
     ActionParams,
@@ -48,9 +48,8 @@ class JobParams(ActionParams):
     backoff_limit: int = None  # type: ignore
     active_deadline_seconds: int = None  # type: ignore
         
-    ContainerSecurityContext = Container.securityContext(
+    ContainerSecurityContext = SecurityContext(
         allowPrivilegeEscalation = False,
-#        capabilities = Container.securityContext.capabilities.drop(["ALL"]),
         capabilities = ["ALL"],
         privileged = False,
         readOnlyRootFilesystem = True,
@@ -60,7 +59,7 @@ class JobParams(ActionParams):
         seLinuxOptions= "RuntimeDefault",
     )
 
-    PodSecurityContext = PodTemplateSpec.spec.securityContext(
+    PodSecurityContext = PodSecurityContext(
         seLinuxOptions= "RuntimeDefault",
         runAsUser= 1000,
         fsGroup=1337,
