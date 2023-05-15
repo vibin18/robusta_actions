@@ -50,7 +50,8 @@ class JobParams(ActionParams):
         
     ContainerSecurityContext = Container.securityContext(
         allowPrivilegeEscalation = False,
-        capabilities = Container.securityContext.capabilities.drop(["ALL"]),
+#        capabilities = Container.securityContext.capabilities.drop(["ALL"]),
+        capabilities = ["ALL"],
         privileged = False,
         readOnlyRootFilesystem = True,
         runAsGroup = 1337,
