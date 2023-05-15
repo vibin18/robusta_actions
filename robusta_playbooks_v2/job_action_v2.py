@@ -66,17 +66,20 @@ class JobParams(ActionParams):
     )
     
     PodResources = ResourceRequirements(
-        limits={
-                "cpu": "200m",
-                "mem": "100Mi",
-                "ephemeral-storage": "1Gi",
-            },
-        requests=
+        {"limits":
             {
                 "cpu": "200m",
                 "mem": "100Mi",
                 "ephemeral-storage": "1Gi",
-            },
+            }
+        },
+        {"requests":
+            {
+                "cpu": "200m",
+                "mem": "100Mi",
+                "ephemeral-storage": "1Gi",
+            }
+        },
     )
 
 
