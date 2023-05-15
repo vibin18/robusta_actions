@@ -70,7 +70,7 @@ class JobParams(ActionParams):
 
 
 @action
-def alert_handling_job_v2(event: PrometheusKubernetesAlert, params: JobParams):
+def alert_handling_job(event: PrometheusKubernetesAlert, params: JobParams):
     """
     Create a kubernetes job with the specified parameters
     In addition, the job pod receives the following alert parameters as environment variables
