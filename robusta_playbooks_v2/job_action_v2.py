@@ -56,11 +56,9 @@ class JobParams(ActionParams):
         runAsGroup = 1337,
         runAsNonRoot= True,
         runAsUser= 1337,
-        seLinuxOptions= "RuntimeDefault",
     )
 
     PodSecurityContext = PodSecurityContext(
-        seLinuxOptions= "RuntimeDefault",
         runAsUser= 1000,
         fsGroup=1337,
         runAsNonRoot= True,
